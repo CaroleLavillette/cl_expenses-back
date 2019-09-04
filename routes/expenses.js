@@ -4,12 +4,10 @@ const cors = require("cors");
 const Expense = require("../models/expenses");
 const bodyParser  = require("body-parser");
 
-const app = express();
-app.use(bodyParser.json());
-app.use(cors());
+router.use(cors());
 
 // ---   CREATE   ---
-app.post("/expense/create", cors(), async (req, res) => {
+router.post("/expense/create", cors(), async (req, res) => {
     try {
         
         const newExpense = new Expense({
@@ -18,26 +16,26 @@ app.post("/expense/create", cors(), async (req, res) => {
             amount: req.body.amount
         });
         await newExpense.save();
-        res.json({message: "New User Created"});
+        res.json({message: "New expense created"});
     } catch (error) {
         res.status(400).json({error: error.message});
     }
 });
 
 // ---   READ   ---
-app.get("/expense", cors(), async (req, res) => {
+router.get("/expense", cors(), async (req, res) => {
 try {
-    if (req.body.id) {
-        const expenses = await Expenses.find();
+    
+        const expenses = await Expense.find();
         res.json(expenses);
-    }
+    
     } catch (error) {
         res.status(400).json({error: error.message});
 }
 });
 
 // ---   UPDATE   ---
-app.post("/expense/update", cors(), async (req, res) => {
+router.post("/expense/update", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const expense = await Expense.findById(req.body.id);
@@ -54,7 +52,7 @@ app.post("/expense/update", cors(), async (req, res) => {
 });
 
 // ---   DELETE   ---
-app.post("/expense/delete", cors(), async (req, res) => {
+router.post("/expense/delete", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const expense = await Expense.findById(req.body.id);

@@ -5,12 +5,11 @@ const bodyParser  = require("body-parser");
 
 const User = require("../models/users");
 
-const app = express();
-app.use(bodyParser.json());
-app.use(cors());
+
+router.use(cors());
 
 // ---   CREATE   ---
-app.post("/user/create", cors(), async (req, res) => {
+router.post("/user/create", cors(), async (req, res) => {
     try {
         const newUser = new User({
             userName: req.body.userName,
@@ -23,19 +22,19 @@ app.post("/user/create", cors(), async (req, res) => {
 });
 
 // ---   READ   ---
-app.get("/user", cors(), async (req, res) => {
+router.get("/user", cors(), async (req, res) => {
 try {
-    if (req.body.id) {
+    
         const users = await User.find();
         res.json(users);
-    }
+    
     } catch (error) {
         res.status(400).json({error: error.message});
 }
 });
 
 // ---   UPDATE   ---
-app.post("/user/update", cors(), async (req, res) => {
+router.post("/user/update", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const user = await User.findById(req.body.id);
@@ -51,7 +50,7 @@ app.post("/user/update", cors(), async (req, res) => {
 });
 
 // ---   DELETE   ---
-app.post("/user/delete", cors(), async (req, res) => {
+router.post("/user/delete", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const user = await User.findById(req.body.id);
