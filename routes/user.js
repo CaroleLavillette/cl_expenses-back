@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const cors = require("cors");
 
 const User = require("../models/user");
 
 
 // ---   CREATE   ---
-app.post("/user/create", async (req, res) => {
+app.post("/user/create", cors(), async (req, res) => {
     try {
         const newUser = new User({
             user: req.body.user,
@@ -18,7 +19,7 @@ app.post("/user/create", async (req, res) => {
 });
 
 // ---   READ   ---
-app.get("/user", async (req, res) => {
+app.get("/user", cors(), async (req, res) => {
 try {
     if (req.body.id) {
         const users = await User.find();
@@ -30,7 +31,7 @@ try {
 });
 
 // ---   UPDATE   ---
-app.post("/user/update", async (req, res) => {
+app.post("/user/update", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const user = await User.findById(req.body.id);
@@ -46,7 +47,7 @@ app.post("/user/update", async (req, res) => {
 });
 
 // ---   DELETE   ---
-app.post("/user/delete", async (req, res) => {
+app.post("/user/delete", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const user = await User.findById(req.body.id);

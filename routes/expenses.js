@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-
+const cors = require("cors");
 const Expense = require("../models/expenses");
-const User = require("../models/users");
 
 
 // ---   CREATE   ---
-app.post("/expense/create", async (req, res) => {
+app.post("/expense/create", cors(), async (req, res) => {
     try {
         
         const newExpense = new Expense({
@@ -22,7 +21,7 @@ app.post("/expense/create", async (req, res) => {
 });
 
 // ---   READ   ---
-app.get("/expense", async (req, res) => {
+app.get("/expense", cors(), async (req, res) => {
 try {
     if (req.body.id) {
         const expenses = await Expenses.find();
@@ -34,7 +33,7 @@ try {
 });
 
 // ---   UPDATE   ---
-app.post("/expense/update", async (req, res) => {
+app.post("/expense/update", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const expense = await Expense.findById(req.body.id);
@@ -51,7 +50,7 @@ app.post("/expense/update", async (req, res) => {
 });
 
 // ---   DELETE   ---
-app.post("/expense/delete", async (req, res) => {
+app.post("/expense/delete", cors(), async (req, res) => {
     try {
         if (req.body.id) {
             const expense = await Expense.findById(req.body.id);
