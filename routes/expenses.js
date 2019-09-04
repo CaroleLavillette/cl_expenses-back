@@ -2,7 +2,11 @@ const express = require("express");
 const router = express.Router();
 const cors = require("cors");
 const Expense = require("../models/expenses");
+const bodyParser  = require("body-parser");
 
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());
 
 // ---   CREATE   ---
 app.post("/expense/create", cors(), async (req, res) => {

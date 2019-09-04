@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
+const bodyParser  = require("body-parser");
 
-const User = require("../models/user");
+const User = require("../models/users");
 
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());
 
 // ---   CREATE   ---
 app.post("/user/create", cors(), async (req, res) => {
