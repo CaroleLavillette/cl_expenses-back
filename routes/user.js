@@ -13,7 +13,7 @@ app.use(cors());
 app.post("/user/create", cors(), async (req, res) => {
     try {
         const newUser = new User({
-            user: req.body.user,
+            userName: req.body.userName,
         });
         await newUser.save();
         res.json({message: "New User Created"});
